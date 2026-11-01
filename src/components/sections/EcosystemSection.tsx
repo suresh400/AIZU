@@ -1,36 +1,53 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { BarChart3, Bot, Coins, Activity, ArrowLeftRight, Heart, TrendingUp, ExternalLink } from 'lucide-react'
+import {
+  BarChart3,
+  Bot,
+  Coins,
+  Activity,
+  ArrowLeftRight,
+  Heart,
+  Smartphone,
+  Sparkles,
+} from 'lucide-react'
 import { ecosystem } from '../../data/content'
 
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string; style?: React.CSSProperties }>> = {
-  BarChart3, Bot, Coins, Activity, ArrowLeftRight, Heart, TrendingUp,
-}
-
-const statusStyles: Record<string, string> = {
-  live: 'badge-live',
-  coming: 'badge-coming',
-  development: 'badge-development',
+  BarChart3,
+  Bot,
+  Coins,
+  Activity,
+  ArrowLeftRight,
+  Heart,
+  Smartphone,
 }
 
 const EcosystemSection: React.FC = () => {
   return (
-    <section className="py-20 md:py-28" style={{ background: '#2C1A00' }}>
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="py-20 md:py-28 relative overflow-hidden" style={{ background: '#221400' }}>
+      {/* Background radial glow */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div
+          className="absolute left-1/2 top-1/4 -translate-x-1/2 w-[800px] h-[500px] rounded-full opacity-30"
+          style={{ background: 'radial-gradient(ellipse, rgba(255,107,0,0.15) 0%, transparent 70%)' }}
+        />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Header */}
-        <div className="text-center mb-14">
+        <div className="text-center mb-16">
           <motion.div
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-4 text-xs font-semibold tracking-widest uppercase font-mono-accent"
-            style={{ background: 'rgba(255,107,0,0.15)', color: '#FF6B00', border: '1px solid rgba(255,107,0,0.2)' }}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full mb-4 text-xs font-semibold tracking-widest uppercase font-mono-accent"
+            style={{ background: 'rgba(255,107,0,0.15)', color: '#FF6B00', border: '1px solid rgba(255,107,0,0.3)' }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            {ecosystem.tag}
+            <Sparkles size={12} /> {ecosystem.tag}
           </motion.div>
           <motion.h2
             className="font-heading font-extrabold text-white"
-            style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}
+            style={{ fontSize: 'clamp(2.2rem, 5vw, 3.5rem)' }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -39,8 +56,8 @@ const EcosystemSection: React.FC = () => {
             {ecosystem.heading}
           </motion.h2>
           <motion.p
-            className="mt-2 text-sm md:text-base max-w-2xl mx-auto"
-            style={{ color: 'rgba(255,248,237,0.6)' }}
+            className="mt-4 text-base md:text-lg max-w-3xl mx-auto leading-relaxed"
+            style={{ color: 'rgba(255,248,237,0.7)' }}
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -51,78 +68,120 @@ const EcosystemSection: React.FC = () => {
         </div>
 
         {/* Bento Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {ecosystem.items.map((item, i) => {
             const Icon = iconMap[item.icon] || Heart
-            const isFeatured = i === 0 || i === 2
+            const isFeatured = i === 0 // AIZUEX Exchange gets 2 cols on lg/xl
+            const hasLink = Boolean(item.href)
+
+            const CardWrapper = hasLink ? 'a' : 'div'
+            const linkProps = hasLink
+              ? {
+                  href: item.href,
+                  target: item.href.startsWith('http') ? '_blank' : undefined,
+                  rel: item.href.startsWith('http') ? 'noopener noreferrer' : undefined,
+                }
+              : {}
+
             return (
-              <motion.a
+              <motion.div
                 key={item.name}
-                href={item.href}
-                target={item.href.startsWith('http') ? '_blank' : undefined}
-                rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                 className={`
-                  group relative rounded-2xl p-6 overflow-hidden cursor-pointer block
-                  transition-all duration-300
-                  ${isFeatured ? 'sm:col-span-2 lg:col-span-1' : ''}
+                  ${isFeatured ? 'md:col-span-2 lg:col-span-2 xl:col-span-2' : 'col-span-1'}
+                  flex
                 `}
-                style={{
-                  background: 'rgba(255,248,237,0.04)',
-                  border: '1px solid rgba(255,107,0,0.12)',
-                }}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.08, duration: 0.5 }}
-                whileHover={{ y: -4 }}
+                transition={{ delay: i * 0.07, duration: 0.5 }}
               >
-                {/* Spotlight on hover */}
-                <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                <CardWrapper
+                  {...linkProps}
+                  className={`
+                    w-full group relative rounded-3xl p-7 md:p-8 flex flex-col justify-between overflow-hidden
+                    transition-all duration-300
+                    ${hasLink ? 'cursor-pointer hover:-translate-y-1.5' : 'cursor-default'}
+                  `}
                   style={{
-                    background: 'radial-gradient(400px circle at 50% 50%, rgba(255,107,0,0.08), transparent 60%)',
+                    background: 'linear-gradient(145deg, rgba(255,248,237,0.06) 0%, rgba(255,248,237,0.02) 100%)',
+                    border: '1px solid rgba(255,107,0,0.16)',
+                    boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.25)',
                   }}
-                />
-
-                {/* Border glow on hover */}
-                <motion.div
-                  className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                  style={{
-                    border: '1px solid rgba(255,107,0,0.3)',
-                    boxShadow: '0 0 20px rgba(255,107,0,0.1)',
-                  }}
-                />
-
-                {/* Icon */}
-                <div
-                  className="w-11 h-11 rounded-xl flex items-center justify-center mb-4"
-                  style={{ background: 'rgba(255,107,0,0.12)' }}
                 >
-                  <Icon size={20} style={{ color: '#FF6B00' }} />
-                </div>
+                  {/* Spotlight on hover */}
+                  <div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                    style={{
+                      background: 'radial-gradient(500px circle at 50% 30%, rgba(255,107,0,0.12), transparent 70%)',
+                    }}
+                  />
 
-                {/* Name + status */}
-                <div className="flex items-start justify-between gap-2 mb-3">
-                  <h3 className="font-heading font-bold text-white text-base leading-tight">{item.name}</h3>
-                  <span
-                    className={`shrink-0 px-2 py-0.5 rounded-full text-xs font-medium font-mono-accent ${statusStyles[item.statusType]}`}
-                  >
-                    {item.status}
-                  </span>
-                </div>
+                  {/* Border glow on hover */}
+                  <div
+                    className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                    style={{
+                      border: '1px solid rgba(255,107,0,0.45)',
+                      boxShadow: 'inset 0 0 20px rgba(255,107,0,0.08), 0 10px 30px rgba(255,107,0,0.15)',
+                    }}
+                  />
 
-                <p style={{ color: 'rgba(255,248,237,0.55)' }} className="text-sm leading-relaxed mb-4">
-                  {item.description}
-                </p>
+                  <div>
+                    {/* Top Row: Icon + Badge */}
+                    <div className="flex items-center justify-between gap-3 mb-6">
+                      <div
+                        className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110"
+                        style={{
+                          background: 'linear-gradient(135deg, rgba(255,107,0,0.25) 0%, rgba(255,107,0,0.08) 100%)',
+                          border: '1px solid rgba(255,107,0,0.3)',
+                        }}
+                      >
+                        <Icon size={24} style={{ color: '#FF6B00' }} />
+                      </div>
 
-                {/* Arrow */}
-                <div
-                  className="flex items-center gap-1 text-xs font-medium opacity-0 group-hover:opacity-100 transition-all duration-200 translate-y-1 group-hover:translate-y-0"
-                  style={{ color: '#FF6B00' }}
-                >
-                  Visit <ExternalLink size={11} />
-                </div>
-              </motion.a>
+                      <span
+                        className="inline-flex items-center px-3.5 py-1.5 rounded-full text-xs font-bold font-mono-accent tracking-wide"
+                        style={{
+                          background: 'rgba(255,107,0,0.15)',
+                          color: '#FF8C00',
+                          border: '1px solid rgba(255,107,0,0.25)',
+                        }}
+                      >
+                        {item.badge}
+                      </span>
+                    </div>
+
+                    {/* Name */}
+                    <h3
+                      className={`font-heading font-extrabold text-white mb-3 group-hover:text-orange transition-colors ${
+                        isFeatured ? 'text-2xl md:text-3xl' : 'text-xl'
+                      }`}
+                    >
+                      {item.name}
+                    </h3>
+
+                    {/* Description */}
+                    <p
+                      style={{ color: 'rgba(255,248,237,0.7)' }}
+                      className={`leading-relaxed mb-6 ${isFeatured ? 'text-base md:text-lg max-w-2xl' : 'text-sm'}`}
+                    >
+                      {item.description}
+                    </p>
+                  </div>
+
+                  {/* Bottom Action */}
+                  <div className="pt-4 border-t border-white/5 flex items-center justify-between">
+                    {hasLink ? (
+                      <span className="inline-flex items-center gap-1.5 text-sm font-heading font-bold text-orange group-hover:gap-2.5 transition-all duration-300">
+                        {item.actionLabel}
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1.5 text-xs font-mono-accent font-semibold tracking-wider uppercase text-white/40">
+                        {item.actionLabel}
+                      </span>
+                    )}
+                  </div>
+                </CardWrapper>
+              </motion.div>
             )
           })}
         </div>

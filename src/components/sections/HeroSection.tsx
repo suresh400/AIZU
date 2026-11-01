@@ -103,9 +103,9 @@ const HeroSection: React.FC = () => {
   const containerRef = useRef<HTMLElement>(null)
 
   const cardPositions = [
-    { style: { top: '5%', right: '5%' } },
-    { style: { top: '38%', right: '8%' } },
-    { style: { top: '60%', right: '35%' } },
+    { style: { top: '5%', right: '25%' } },
+    { style: { top: '35%', right: '8%' } },
+    { style: { top: '60%', right: '30%' } },
     { style: { top: '30%', right: '42%' } },
   ]
 
@@ -179,13 +179,15 @@ const HeroSection: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 2.5, duration: 0.5 }}
             >
-              {hero.buttons.map((btn) =>
-                btn.href.startsWith('http') ? (
+              {hero.buttons.map((btn) => {
+                const isMail = btn.href.startsWith('mailto:')
+                const isHttp = btn.href.startsWith('http')
+                return isMail || isHttp ? (
                   <a
                     key={btn.label}
                     href={btn.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    target={isHttp ? '_blank' : undefined}
+                    rel={isHttp ? 'noopener noreferrer' : undefined}
                     className={btn.primary ? 'btn-primary' : 'btn-outline'}
                   >
                     {btn.label}
@@ -201,7 +203,7 @@ const HeroSection: React.FC = () => {
                     {btn.primary && <ArrowRight size={16} />}
                   </Link>
                 )
-              )}
+              })}
             </motion.div>
 
             {/* Stats pills */}
