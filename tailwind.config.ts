@@ -64,8 +64,8 @@ const config: Config = {
         'slide-up': 'slideUp 0.6s ease forwards',
         'fade-in': 'fadeIn 0.8s ease forwards',
         'shimmer': 'shimmer 2s infinite linear',
-        'marquee': 'marquee 25s linear infinite',
-        'marquee-reverse': 'marquee 25s linear infinite reverse',
+        'marquee': 'scroll-marquee 25s linear infinite',
+        'marquee-reverse': 'scroll-marquee 25s linear infinite reverse',
       },
       keyframes: {
         float: {
@@ -89,6 +89,10 @@ const config: Config = {
           '100%': { backgroundPosition: '200% 0' },
         },
         marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
+        'scroll-marquee': {
           '0%': { transform: 'translateX(0)' },
           '100%': { transform: 'translateX(-50%)' },
         },

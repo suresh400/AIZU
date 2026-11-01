@@ -11,7 +11,7 @@ const TrustSection: React.FC = () => {
 
   return (
     <section className="py-10 overflow-hidden" style={{ background: '#F5EDD8', borderTop: '1px solid rgba(255,107,0,0.1)', borderBottom: '1px solid rgba(255,107,0,0.1)' }}>
-      <div className="relative">
+      <div className="relative overflow-hidden">
         <div className="marquee-track">
           {doubled.map((item, i) => {
             const Icon = iconMap[item.icon] || Star

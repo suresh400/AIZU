@@ -24,7 +24,7 @@ const PartnersSection: React.FC = () => {
         </motion.div>
       </div>
 
-      <div className="relative">
+      <div className="relative overflow-hidden">
         {/* Soft edge gradient masks */}
         <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#F5EDD8] to-transparent z-10 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#F5EDD8] to-transparent z-10 pointer-events-none" />
