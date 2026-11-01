@@ -58,13 +58,13 @@ const CoinSection: React.FC = () => {
 
               {/* Badge */}
               <motion.div
-                className="absolute -bottom-4 -right-4 glass-orange rounded-2xl px-4 py-3 text-center shadow-orange"
+                className="absolute -bottom-4 -right-4 bg-white/95 backdrop-blur-md rounded-2xl px-5 py-3 text-center shadow-xl border-2 border-orange/40"
                 initial={{ scale: 0, opacity: 0 }}
                 animate={isInView ? { scale: 1, opacity: 1 } : {}}
                 transition={{ delay: 0.5, type: 'spring', stiffness: 200 }}
               >
-                <p className="font-mono-accent font-bold text-orange text-xl">10M</p>
-                <p className="text-muted text-xs mt-0.5">AIZU COINS</p>
+                <p className="font-mono-accent font-extrabold text-orange text-2xl tracking-tight leading-none">10M</p>
+                <p className="font-heading font-extrabold text-orange text-xs mt-1 tracking-wider uppercase">AIZU COINS</p>
               </motion.div>
             </div>
           </motion.div>
@@ -90,7 +90,7 @@ const CoinSection: React.FC = () => {
               {coin.stats.map((s, i) => (
                 <div key={s.label} className="text-center">
                   <p className="font-mono-accent font-bold text-2xl text-orange">
-                    {isInView ? <CountUp end={s.raw} suffix={s.value.replace(/[0-9]/g, '')} duration={2 + i * 0.3} /> : '—'}
+                    {isInView ? <CountUp end={s.raw} suffix={s.value.replace(/[0-9]/g, '').trim()} duration={2 + i * 0.3} /> : s.value}
                   </p>
                   <p className="text-muted text-xs mt-1">{s.label}</p>
                 </div>

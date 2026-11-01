@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import Lenis from 'lenis'
 
@@ -9,28 +9,40 @@ import PageTransition from './components/layout/PageTransition'
 import ScrollProgress from './components/ui/ScrollProgress'
 import CustomCursor from './components/ui/CustomCursor'
 
-import Home from './pages/Home'
-import About from './pages/About'
-import Programs from './pages/Programs'
-import Donations from './pages/Donations'
-import Gallery from './pages/Gallery'
+// Lazy-loaded pages for optimal initial bundle size and fast page loads
+const Home = lazy(() => import('./pages/Home'))
+const About = lazy(() => import('./pages/About'))
+const Programs = lazy(() => import('./pages/Programs'))
+const Donations = lazy(() => import('./pages/Donations'))
+const Gallery = lazy(() => import('./pages/Gallery'))
 
 // Module-level guard: ensures preloader only runs once per initial app load or browser reload, never during in-app navigation
 let hasAppPreloaded = false
+
+const RouteFallback: React.FC = () => (
+  <div className="min-h-[60vh] flex items-center justify-center" aria-busy="true" aria-label="Loading page">
+    <div className="flex flex-col items-center gap-3">
+      <div className="w-10 h-10 rounded-full border-2 border-orange/20 border-t-orange animate-spin" />
+      <span className="font-mono-accent text-xs tracking-widest uppercase text-muted">Loading</span>
+    </div>
+  </div>
+)
 
 const AppRoutes: React.FC = () => {
   const location = useLocation()
 
   return (
     <PageTransition>
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/programs" element={<Programs />} />
-        <Route path="/donations" element={<Donations />} />
-        <Route path="/gallery" element={<Gallery />} />
-        <Route path="*" element={<Home />} />
-      </Routes>
+      <Suspense fallback={<RouteFallback />}>
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/programs" element={<Programs />} />
+          <Route path="/donations" element={<Donations />} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="*" element={<Home />} />
+        </Routes>
+      </Suspense>
     </PageTransition>
   )
 }

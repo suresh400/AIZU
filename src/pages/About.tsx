@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Sparkles, CheckCircle2, Users } from 'lucide-react'
 import { about } from '../data/content'
-import CTASection from '../components/sections/CTASection'
 
 const PageHero: React.FC<{ tag: string; heading: string; sub: string }> = ({ tag, heading, sub }) => (
   <section className="relative pt-32 pb-20 overflow-hidden" style={{ background: 'linear-gradient(160deg, #F5EDD8 0%, #FFF8ED 100%)' }}>
@@ -338,8 +337,6 @@ const About: React.FC = () => {
           </motion.div>
         </div>
       </section>
-
-      <CTASection />
     </main>
   )
 }

@@ -104,7 +104,7 @@ const HeroSection: React.FC = () => {
 
   const cardPositions = [
     { style: { top: '5%', right: '5%' } },
-    { style: { top: '38%', right: '18%' } },
+    { style: { top: '38%', right: '8%' } },
     { style: { top: '60%', right: '35%' } },
     { style: { top: '30%', right: '42%' } },
   ]

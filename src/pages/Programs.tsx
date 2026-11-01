@@ -88,7 +88,12 @@ const Programs: React.FC = () => {
       </section>
 
       <StatsSection />
-      <CTASection />
+      <CTASection
+        tag={programs.cta.tag}
+        heading={programs.cta.heading}
+        subheading={programs.cta.subheading}
+        button={programs.cta.button}
+      />
     </main>
   )
 }

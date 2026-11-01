@@ -3,7 +3,22 @@ import { motion } from 'framer-motion'
 import { ArrowRight, Sparkles } from 'lucide-react'
 import { cta } from '../../data/content'
 
-const CTASection: React.FC = () => {
+interface CTASectionProps {
+  tag?: string
+  heading?: string
+  subheading?: string
+  button?: {
+    label: string
+    href: string
+  }
+}
+
+const CTASection: React.FC<CTASectionProps> = ({
+  tag = cta.tag,
+  heading = cta.heading,
+  subheading = cta.subheading,
+  button = cta.button,
+}) => {
   return (
     <section className="relative py-20 md:py-28 overflow-hidden">
       {/* Animated gradient background */}
@@ -41,7 +56,7 @@ const CTASection: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <Sparkles size={12} /> Get Involved
+          <Sparkles size={12} /> {tag}
         </motion.div>
 
         <motion.h2
@@ -52,7 +67,7 @@ const CTASection: React.FC = () => {
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
         >
-          {cta.heading}
+          {heading}
         </motion.h2>
 
         <motion.p
@@ -62,11 +77,11 @@ const CTASection: React.FC = () => {
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
         >
-          {cta.subheading}
+          {subheading}
         </motion.p>
 
         <motion.a
-          href={cta.button.href}
+          href={button.href}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-3 px-8 py-4 bg-white text-orange font-heading font-bold text-base rounded-full shadow-glass-lg hover:shadow-orange-lg transition-all duration-300 group"
@@ -77,7 +92,7 @@ const CTASection: React.FC = () => {
           whileHover={{ scale: 1.05, y: -3 }}
           whileTap={{ scale: 0.97 }}
         >
-          {cta.button.label}
+          {button.label}
           <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
         </motion.a>
       </div>

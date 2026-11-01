@@ -75,16 +75,16 @@ export const hero = {
 
 // ─── AIZU Coin Section ───────────────────────────────────────
 export const coin = {
-  tag: 'AIZU Coin',
-  heading: 'AIZU Coin',
-  subHeading: 'Community Allocation',
-  tagline: '10 Million AIZU Coins reserved',
-  taglineRest: 'to empower communities, fund future education, and support welfare drives.',
+  tag: 'Token Allocation',
+  heading: 'Aizu Coins',
+  subHeading: 'Community Reserve',
+  tagline: '1 Crore Aizu Coins (10,000,000)',
+  taglineRest: '— Allocated for Aizu Community Growth.',
   description:
-    'This allocation supports community initiatives, token-holder rewards, ecosystem expansion, strategic partnerships, and long-term sustainability.',
+    'This allocation supports community initiatives, bot-holder rewards, ecosystem expansion, strategic partnerships, and long-term sustainability.',
   stats: [
-    { label: 'Reserved Tokens', value: '10M', raw: 10000000 },
-    { label: 'Total Supply', value: '10B', raw: 10000000000 },
+    { label: 'Reserved Tokens', value: '10M', raw: 10 },
+    { label: 'Total Supply', value: '10B', raw: 10 },
     { label: 'Use Cases', value: '5', raw: 5 },
   ],
   allocationLabel: 'Community Reserve Allocation',
@@ -98,11 +98,16 @@ export const coin = {
   ],
 }
 
-// ─── Programs ────────────────────────────────────────────────
 export const programs = {
   tag: 'Our Work',
   heading: 'Our Impact Programs',
   subheading: 'Real solutions for real community needs.',
+  cta: {
+    tag: 'Get Involved',
+    heading: 'Want to Learn More?',
+    subheading: 'Reach out to discover how you can participate in or support our programs.',
+    button: { label: 'Contact Us', href: 'mailto:Support@aizuex.com' },
+  },
   items: [
     {
       id: '01',
@@ -426,14 +431,12 @@ export const countries = [
 
 // ─── CTA Section ─────────────────────────────────────────────
 export const cta = {
-  tag: 'Join the Movement',
-  heading: 'Ready to build the future together?',
-  subheading:
-    'Whether you want to trade, contribute to our foundation, or learn Web3 skills — there is a place for you in AIZU.',
-  button: { label: 'Join Community', href: 'https://t.me/aizuofficial' },
+  tag: 'Get Involved',
+  heading: 'Ready to Make a Difference?',
+  subheading: 'Join us in building a community where technology serves humanity.',
+  button: { label: 'Get Involved Today', href: 'mailto:Support@aizuex.com' },
   buttons: [
-    { label: 'Join Community', href: 'https://t.me/aizuofficial', primary: true },
-    { label: 'Explore Ecosystem', href: 'https://aizuex.com/', primary: false },
+    { label: 'Get Involved Today', href: 'mailto:Support@aizuex.com', primary: true },
   ],
 }
 
